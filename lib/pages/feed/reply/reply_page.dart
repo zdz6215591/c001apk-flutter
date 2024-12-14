@@ -308,7 +308,7 @@ class _ReplyPageState extends State<ReplyPage>
           ),
           Divider(
             height: 1,
-            color: Theme.of(context).dividerColor.withOpacity(0.1),
+            color: Theme.of(context).dividerColor.withValues(alpha: 0.1),
           ),
           Container(
             height: 52,

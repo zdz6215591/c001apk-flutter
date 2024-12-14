@@ -166,12 +166,16 @@ class _ImageViewPageState extends State<ImageViewPage> {
                 },
                 icon: Icon(
                   Icons.arrow_back,
-                  color:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.6),
                 ),
                 style: IconButton.styleFrom(
-                    backgroundColor:
-                        Theme.of(context).colorScheme.surface.withOpacity(0.5)),
+                    backgroundColor: Theme.of(context)
+                        .colorScheme
+                        .surface
+                        .withValues(alpha: 0.5)),
               ),
             ),
           if (Utils.isDesktop && _imgList.length != 1)
@@ -188,11 +192,13 @@ class _ImageViewPageState extends State<ImageViewPage> {
                 icon: Icon(
                   Icons.arrow_forward,
                   color:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                      Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                 ),
                 style: IconButton.styleFrom(
-                    backgroundColor:
-                        Theme.of(context).colorScheme.surface.withOpacity(0.5)),
+                    backgroundColor: Theme.of(context)
+                        .colorScheme
+                        .surface
+                        .withValues(alpha: 0.5)),
               ),
             ),
         ],

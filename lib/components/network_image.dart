@@ -15,7 +15,7 @@ Widget networkImage(
     return Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.outline.withOpacity(0.25),
+        color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.25),
         borderRadius: borderRadius,
       ),
       child: Icon(
