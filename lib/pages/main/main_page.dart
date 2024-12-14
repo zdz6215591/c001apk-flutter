@@ -121,10 +121,13 @@ class _MainPageState extends State<MainPage> {
                   stream: _indexSctream.stream,
                   builder: (_, snapshot) => NavigationRail(
                     destinations: railDestinations,
-                    selectedIndex: snapshot.data,
+                    selectedIndex: snapshot.data!,
                     onDestinationSelected: onDestinationSelected,
+                    labelType: NavigationRailLabelType.all,
+                    minWidth: 108,
                   ),
                 ),
+              if (!isPortait) const VerticalDivider(width: 1),
               Expanded(
                 child: PageView(
                   physics: const NeverScrollableScrollPhysics(),
