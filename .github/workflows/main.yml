@@ -44,7 +44,7 @@ jobs:
       - name: 打包Windows应用
         if: success()
         run: |
-          $sourcePath = "D:\a\c001apk\c001apk\build\windows\x64\runner\Release"
+          $sourcePath = "D:\a\c001apk-flutter\c001apk-flutter\build\windows\x64\runner\Release"
           if (Test-Path $sourcePath) {
             Write-Host "开始打包Windows应用..."
             Compress-Archive -Path "$sourcePath\*" -DestinationPath "c001apk-windows.zip" -Force
