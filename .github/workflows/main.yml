@@ -1,0 +1,68 @@
+name: c001apk Release
+
+# action事件触发
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - '**.md'
+      - '**.txt'
+      - '.github/**'
+      - '.idea/**'
+      - '!.github/workflows/**'
+
+# 可以有多个jobs
+jobs:
+  windows:
+    # Windows构建环境
+    runs-on: windows-latest
+    
+    steps:
+      - name: 代码迁出
+        uses: actions/checkout@v3
+        
+      - name: 安装Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          
+      - name: 启用Windows平台
+        run: flutter config --enable-windows-desktop
+        
+      - name: 清理缓存
+        run: flutter clean
+        
+      - name: 下载项目依赖
+        run: flutter pub get
+        
+      - name: 构建Windows应用
+        run: flutter build windows --release --verbose
+        continue-on-error: true
+        id: build_windows
+        
+      - name: 打包Windows应用
+        if: success()
+        run: |
+          $sourcePath = "D:\a\c001apk\c001apk\build\windows\x64\runner\Release"
+          if (Test-Path $sourcePath) {
+            Write-Host "开始打包Windows应用..."
+            Compress-Archive -Path "$sourcePath\*" -DestinationPath "c001apk-windows.zip" -Force
+            if (Test-Path "c001apk-windows.zip") {
+              Write-Host "打包成功：$(Get-Item c001apk-windows.zip).Length 字节"
+            } else {
+              Write-Host "::warning::打包失败，zip文件未创建"
+              exit 1
+            }
+          } else {
+            Write-Host "::error::打包失败，源目录 $sourcePath 不存在"
+            exit 1
+          }
+        shell: pwsh
+        
+      - name: 执行上传
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-release
+          path: "c001apk-windows.zip"
